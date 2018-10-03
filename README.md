@@ -5,4 +5,3 @@
 
 # to install live-server: 
 npm install -g live-server
-https://www.npmjs.com/package/live-server
