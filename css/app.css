@@ -37,16 +37,10 @@ form input[type=number] {
     margin: 0 5px;
 }
 
-table {
-    border-collapse: collapse;
-    margin: 0 auto;
-    width: 75vw;
-    height: 75vh;
+.canvas-container {
+    display: flex;
 }
 
-/* if one wants to see it as a bordered table */
-/* table td { */
-    /* border: 1px solid black; */
-    /* width: 1px; */
-    /* height: 1px; */
-/* } */
+canvas {
+    margin: 0 auto;
+}

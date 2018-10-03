@@ -5,17 +5,9 @@ export default {
 	template: `
 		<section class="main-board">
 			<my-header @set-size="setSize" />
-			<table id="island-table" v-if="table">
-				<tr v-for="(row, i) in table">
-					<td v-for="(value, j) in row"
-						:class="setClassName(i, j)"
-						:style="{
-							backgroundColor: value ? getIslandColor(value) : '#ffffff',
-						}"
-					>
-					</td>
-				</tr>
-			</table>
+			<div class="canvas-container">
+				<canvas ref="myCanvas" />
+			</div>
 			<h4 v-if="count">Counted islands: {{count}}</h4>
 		</section>
 	`,
@@ -26,13 +18,26 @@ export default {
 		}
 	},
 	methods: {
-		setClassName(i, j) {
-			return `pixel-${i}-${j}`;
-		},
-		setSize({width, height}) {
+		setSize({ width, height }) {
 			const data = gameService.initBoard(height, width);
 			this.table = data.board;
 			this.count = data.count;
+			this.drawCanvas();
+		},
+		drawCanvas() {
+			const canvas = this.$refs.myCanvas;
+			canvas.width = this.table[0].length;
+			canvas.height = this.table.length;
+			const ctx = canvas.getContext('2d');
+			ctx.clearRect(0, 0, this.table[0].length, this.table.length);
+			for (let i = 0; i < this.table.length; ++i) {
+				for (var j = 0; j < this.table[0].length; ++j) {
+					if (this.table[i][j]) {
+						ctx.fillStyle = this.getIslandColor(this.table[i][j]);
+						ctx.fillRect(i, j, 1, 1);
+					}
+				}
+			}
 		},
 		// get color by value with caching via closure.
 		getIslandColor: (function () {
