@@ -3,17 +3,17 @@ import myHeader from './header.js';
 
 export default {
 	template: `
-	<section class="main-board">
-	<my-header @set-size="setSize" />
-		<table id="island-table" v-if="table">
+		<section class="main-board">
+			<my-header @set-size="setSize" />
+			<table id="island-table" v-if="table">
 				<tr v-for="(row, i) in table">
-						<td v-for="(value, j) in row"
-							:class="setClassName(i, j)"
-							:style="{
-								backgroundColor: value ? getIslandColor(value) : '#ffffff',
-							}"
-						>
-						</td>
+					<td v-for="(value, j) in row"
+						:class="setClassName(i, j)"
+						:style="{
+							backgroundColor: value ? getIslandColor(value) : '#ffffff',
+						}"
+					>
+					</td>
 				</tr>
 			</table>
 			<h4 v-if="count">Counted islands: {{count}}</h4>
