@@ -9,7 +9,6 @@ new Vue({
             <main-board />
         </section>
     `,
-    // router: myRouter,
     components: {
         headerBar,
         mainBoard
