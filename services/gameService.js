@@ -25,14 +25,18 @@ const _countIslands = board => {
 		for (let j = 0; j < board[0].length; j++) {
 			if (board[i][j] > 0) {
 				count++;
-				_zeroNeig(i, j, board, -count);
+				// Send argument '-count' to set as new value.
+				// Can't send the count because the recursion will
+				// re-enter the first island ('count=1') again.
+				// This '-count' value will be later be used in setting the colors.
+				_resetNeig(i, j, board, -count);
 			}
 		}
 	}
 	return count;
 }
 
-const _zeroNeig = (i, j, board, islandNum) => {
+const _resetNeig = (i, j, board, islandNum) => {
 	for (let row = -1; row < 2; row++) {
 		for (let col = -1; col < 2; col++) {
 			if (
@@ -45,7 +49,7 @@ const _zeroNeig = (i, j, board, islandNum) => {
 			const newJ = j + col;
 			if (board[newI][newJ] > 0) {
 				board[newI][newJ] = islandNum;
-				_zeroNeig(newI, newJ, board, islandNum)
+				_resetNeig(newI, newJ, board, islandNum)
 			}
 		}
 	}
